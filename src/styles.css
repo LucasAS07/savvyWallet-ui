@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "primeicons/primeicons.css";
+
+body {
+  margin: 0;
+  font-family: Arial, Verdana, sans-serif;
+  color: #c7c5c0;
+}
+
+label {
+  font-weight: bold;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+    margin: 0 auto;
+  }
+}
+
+.col-acoes {
+  width: 120px;
+}
+
+.col-acoes>a {
+  margin-right: 5px;
+}
+
+
