@@ -48,10 +48,10 @@
               <td>{{lancamento.tipo}}</td>
               <td>{{lancamento.pessoa}}</td>
               <td>{{lancamento.descricao}}</td>
-              <td>{{lancamento.dataVencimento}}</td>
-              <td>{{lancamento.dataPagamento}}</td>
+              <td>{{lancamento.dataVencimento | date:'dd/MM/y'}}</td>
+              <td>{{lancamento.dataPagamento | date:'dd/MM/y'}}</td>
               <td [ngStyle]="conditionalType(lancamento)">
-                {{lancamento.valor}}
+                {{lancamento.valor | currency:'BRL':true}}
               </td>
               <td class="col-acoes" style="display: block">
                 <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" severity="info"></a>
