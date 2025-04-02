@@ -5,14 +5,51 @@
         <h1>Novo Lançamento</h1>
       </div>
 
-      <div class="col-6">
-        <label>Vencimento</label>
+      <div class="col-12">
+        <p-selectbutton [options]="stateOptions" optionLabel="label" optionValue="value"
+          aria-labelledby="basic" #tipo/>
+      </div>
+
+      <div class="col-6 md:col-3">
+        <label class="font-bold block mb-2">Vencimento</label>
+        <p-datepicker [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" dateFormat="dd/mm/yy" />
+      </div>
+
+      <div class="col-6 md:col-3">
+        <label class="font-bold block mb-2">{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
+        <p-datepicker [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" dateFormat="dd/mm/yy"/>
+      </div>
+
+      <div class="col-12 md:col-9">
+        <label class="font-bold block mb-2">Descrição</label>
         <input pInputText [fluid]="true" type="text">
       </div>
 
-      <div class="col-6">
-        <label>Pagamento</label>
-        <input pInputText [fluid]="true" type="text">
+      <div class="col-12 md:col-3">
+        <label class="font-bold block mb-2">Valor</label>
+        <p-inputnumber inputId="valor" mode="currency" currency="BRL" locale="pt-BR" [fluid]="true"/>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <label class="font-bold block mb-2">Categoria</label>
+        <p-select [options]="categorias" optionLabel="label" placeholder="Selectione a Categoria" [fluid]="true"/>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <label class="font-bold block mb-2">Pessoa</label>
+        <p-select [options]="pessoas" optionLabel="label" placeholder="Selectione uma Pessoa" [fluid]="true"/>
+      </div>
+
+      <div class="col-12">
+        <label class="font-bold block mb-2">Observação</label>
+        <textarea rows="5" cols="30" pTextarea [autoResize]="true" [fluid]="true"></textarea>
+      </div>
+
+      <div class="col-12">
+        <button pButton type="submit" label="Salvar" severity="info" icon="pi pi-save" iconPos="right"></button>
+        <button pButton type="submit" label="Novo" severity="info" icon="pi pi-plus" iconPos="right"></button>
+        <a href="javascript::">Voltar para pesquisa</a>
+
       </div>
 
     </div>

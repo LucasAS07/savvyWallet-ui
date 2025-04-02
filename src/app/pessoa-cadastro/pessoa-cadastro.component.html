@@ -1,0 +1,57 @@
+<div class="container">
+  <form>
+    <div class="grid">
+      <div class="col-12">
+        <h1>Nova Pessoa</h1>
+      </div>
+
+      <div class="col-12">
+        <label class="font-bold block mb-2">Nome</label>
+        <input pInputText [fluid]="true" type="text">
+      </div>
+
+      <div class="col-12 md:col-9">
+        <label class="font-bold block mb-2">Logradouro</label>
+        <input pInputText [fluid]="true" type="text">
+      </div>
+
+      <div class="col-12 md:col-3">
+        <label class="font-bold block mb-2">Número</label>
+        <input pInputText [fluid]="true" type="text">
+      </div>
+
+      <div class="col-12 md:col-4">
+        <label class="font-bold block mb-2">Complemento</label>
+        <input type="text" pInputText [fluid]="true">
+      </div>
+
+      <div class="col-12 md:col-4">
+        <label class="font-bold block mb-2">Bairro</label>
+        <input type="text" pInputText [fluid]="true">
+      </div>
+
+      <div class="col-12 md:col-4">
+        <label class="font-bold block mb-2">CEP</label>
+        <p-inputmask mask="99999-999" placeholder="00000-000" />
+      </div>
+
+      <div class="col-12 md:col-6">
+        <label class="font-bold block mb-2">Cidade</label>
+        <input type="text" pInputText [fluid]="true">
+      </div>
+
+      <div class="col-12 md:col-6">
+        <label class="font-bold block mb-2">Estado</label>
+        <input type="text" pInputText [fluid]="true">
+      </div>
+
+      <div class="col-12">
+        <button pButton type="submit" label="Salvar" severity="info" icon="pi pi-save" iconPos="right"></button>
+        <button pButton type="submit" label="Novo" severity="info" icon="pi pi-plus" iconPos="right"></button>
+        <a href="javascript::">Voltar para pesquisa</a>
+
+      </div>
+
+    </div>
+  </form>
+</div>
