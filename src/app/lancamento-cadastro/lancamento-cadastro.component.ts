@@ -3,18 +3,20 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
-import { NgModel } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { NgIf } from '@angular/common';
+import { MessageModule } from 'primeng/message';
+import { MessageComponent } from "../../message/message.component";
 
 @Component({
   selector: 'app-lancamento-cadastro',
   standalone: true,
-  imports: [InputTextModule,TextareaModule,ButtonModule,
+  imports: [InputTextModule, TextareaModule, ButtonModule,
     DatePickerModule, SelectButtonModule, SelectModule,
-    InputNumberModule
-  ],
+    InputNumberModule, FormsModule, NgIf, MessageModule, MessageComponent],
 
 templateUrl: './lancamento-cadastro.component.html',
   styleUrl: './lancamento-cadastro.component.css'

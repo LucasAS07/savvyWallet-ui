@@ -6,8 +6,8 @@
       </div>
 
       <div class="col-12">
-        <p-selectbutton [options]="stateOptions" optionLabel="label" optionValue="value"
-          aria-labelledby="basic" #tipo/>
+        <p-selectbutton [options]="stateOptions" optionLabel="label" optionValue="value" aria-labelledby="basic"
+          #tipo />
       </div>
 
       <div class="col-6 md:col-3">
@@ -17,27 +17,37 @@
 
       <div class="col-6 md:col-3">
         <label class="font-bold block mb-2">{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
-        <p-datepicker [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" dateFormat="dd/mm/yy"/>
+        <p-datepicker [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" dateFormat="dd/mm/yy" />
       </div>
 
-      <div class="col-12 md:col-9">
+      <div class="col-12 col-md-9">
         <label class="font-bold block mb-2">Descrição</label>
-        <input pInputText [fluid]="true" type="text">
+        <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
+
+        <app-message [control]="descricao" error="required" text="Informe uma descrição"></app-message>
+      </div>
+
+        <div *ngIf="descricao.hasError('minlength') && descricao.dirty" class="p-message p-message-error">
+          <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">
+            Descrição deve ter no minimo 5 caracteres
+          </p-message>
+        </div>
       </div>
 
       <div class="col-12 md:col-3">
         <label class="font-bold block mb-2">Valor</label>
-        <p-inputnumber inputId="valor" mode="currency" currency="BRL" locale="pt-BR" [fluid]="true"/>
+        <p-inputnumber inputId="valor" name="valor" ndModel mode="currency" currency="BRL" locale="pt-BR"
+          [fluid]="true" />
       </div>
 
       <div class="col-12 md:col-6">
         <label class="font-bold block mb-2">Categoria</label>
-        <p-select [options]="categorias" optionLabel="label" placeholder="Selectione a Categoria" [fluid]="true"/>
+        <p-select [options]="categorias" optionLabel="label" placeholder="Selectione a Categoria" [fluid]="true" />
       </div>
 
       <div class="col-12 md:col-6">
         <label class="font-bold block mb-2">Pessoa</label>
-        <p-select [options]="pessoas" optionLabel="label" placeholder="Selectione uma Pessoa" [fluid]="true"/>
+        <p-select [options]="pessoas" optionLabel="label" placeholder="Selectione uma Pessoa" [fluid]="true" />
       </div>
 
       <div class="col-12">
