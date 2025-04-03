@@ -9,7 +9,7 @@ import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { NgIf } from '@angular/common';
 import { MessageModule } from 'primeng/message';
-import { MessageComponent } from "../../message/message.component";
+import { MessageComponent } from "../message/message.component";
 
 @Component({
   selector: 'app-lancamento-cadastro',

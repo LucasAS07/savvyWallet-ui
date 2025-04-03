@@ -7,7 +7,9 @@
 
       <div class="col-12">
         <label class="font-bold block mb-2">Nome</label>
-        <input pInputText [fluid]="true" type="text">
+        <input pInputText [fluid]="true" type="text" name="nome" ngModel #nome="ngModel" required minlength="5">
+
+        <app-message [control]="nome" error="required" text="Informe uma descrição"></app-message>
       </div>
 
       <div class="col-12 md:col-9">

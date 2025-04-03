@@ -20,19 +20,15 @@
         <p-datepicker [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" dateFormat="dd/mm/yy" />
       </div>
 
-      <div class="col-12 col-md-9">
+      <div class="col-12 md:col-9 p-fluid">
         <label class="font-bold block mb-2">Descrição</label>
-        <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
+        <input pInputText [fluid]="true" type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
 
         <app-message [control]="descricao" error="required" text="Informe uma descrição"></app-message>
+        <app-message [control]="descricao" error="minlength" text="Tamanho minimo é 5 caracters"></app-message>
+
       </div>
 
-        <div *ngIf="descricao.hasError('minlength') && descricao.dirty" class="p-message p-message-error">
-          <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">
-            Descrição deve ter no minimo 5 caracteres
-          </p-message>
-        </div>
-      </div>
 
       <div class="col-12 md:col-3">
         <label class="font-bold block mb-2">Valor</label>
