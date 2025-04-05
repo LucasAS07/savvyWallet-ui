@@ -7,14 +7,17 @@ import { NgStyle } from '@angular/common';
 import { BadgeModule } from 'primeng/badge';
 import { TooltipModule } from 'primeng/tooltip';
 import { DatePipe,CurrencyPipe } from '@angular/common';
+import { DatePickerModule } from 'primeng/datepicker';
+import { LancamentoGridComponent } from '../lancamento-grid/lancamento-grid.component';
+
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
   standalone: true,
-  imports: [InputTextModule,
-    StyleClassModule,ButtonModule,
-    TableModule, NgStyle, BadgeModule,
-    TooltipModule,DatePipe,CurrencyPipe],
+  imports: [InputTextModule, DatePickerModule,
+    StyleClassModule, ButtonModule,
+    TableModule, BadgeModule,
+    TooltipModule, LancamentoGridComponent],
   templateUrl: './lancamentos-pesquisa.component.html',
   styleUrl: './lancamentos-pesquisa.component.css'
 })
@@ -37,8 +40,5 @@ export class LancamentosPesquisaComponent {
       dataPagamento: new Date(), valor: 180, pessoa: 'Academia Top' }
   ]
 
-  conditionalType(lancamentos: any){
-    if(lancamentos.tipo === 'DESPESA') return {color: '#D76C82'}
-    else return {color: 'green'}
-  }
+
 }

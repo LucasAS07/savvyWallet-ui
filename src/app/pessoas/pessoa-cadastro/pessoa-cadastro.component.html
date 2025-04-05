@@ -9,17 +9,22 @@
         <label class="font-bold block mb-2">Nome</label>
         <input pInputText [fluid]="true" type="text" name="nome" ngModel #nome="ngModel" required minlength="5">
 
-        <app-message [control]="nome" error="required" text="Informe uma descrição"></app-message>
+        <app-message [control]="nome" error="required" text="Informe um nome"></app-message>
+        <app-message [control]="nome" error="minlength" text="Tamanho minimo é 5 caracters"></app-message>
       </div>
 
       <div class="col-12 md:col-9">
         <label class="font-bold block mb-2">Logradouro</label>
-        <input pInputText [fluid]="true" type="text">
+        <input pInputText [fluid]="true" type="text" name="logradouro" ngModel #logradouro="ngModel" required>
+
+        <app-message [control]="logradouro" error="required" text="Informe um logradouro"></app-message>
       </div>
 
       <div class="col-12 md:col-3">
         <label class="font-bold block mb-2">Número</label>
-        <input pInputText [fluid]="true" type="text">
+        <input pInputText [fluid]="true" type="text" name="numero" ngModel #numero="ngModel" required>
+
+        <app-message [control]="numero" error="required" text="Informe um numero"></app-message>
       </div>
 
       <div class="col-12 md:col-4">
@@ -29,17 +34,23 @@
 
       <div class="col-12 md:col-4">
         <label class="font-bold block mb-2">Bairro</label>
-        <input type="text" pInputText [fluid]="true">
+        <input type="text" pInputText [fluid]="true" name="bairro" ngModel #bairro="ngModel" required>
+
+        <app-message [control]="bairro" error="required" text="Informe um bairro"></app-message>
       </div>
 
       <div class="col-12 md:col-4">
         <label class="font-bold block mb-2">CEP</label>
-        <p-inputmask mask="99999-999" placeholder="00000-000" />
+        <p-inputmask mask="99999-999" placeholder="00000-000" name="cep" ngModel #cep="ngModel" required/>
+
+        <app-message [control]="cep" error="required" text="Informe um CEP"></app-message>
       </div>
 
       <div class="col-12 md:col-6">
         <label class="font-bold block mb-2">Cidade</label>
-        <input type="text" pInputText [fluid]="true">
+        <input type="text" pInputText [fluid]="true" name="cidade" ngModel #cidade="ngModel" required>
+
+        <app-message></app-message>
       </div>
 
       <div class="col-12 md:col-6">

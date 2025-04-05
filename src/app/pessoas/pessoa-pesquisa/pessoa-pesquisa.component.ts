@@ -7,14 +7,15 @@ import { TableModule } from 'primeng/table';
 import { NgStyle } from '@angular/common';
 import { BadgeModule } from 'primeng/badge';
 import { TooltipModule } from 'primeng/tooltip';
+import { PessoaGridComponent } from "../pessoa-grid/pessoa-grid.component";
 
 @Component({
   selector: 'app-pessoa-pesquisa',
   standalone: true,
   imports: [InputTextModule,
-    StyleClassModule,ButtonModule,
+    StyleClassModule, ButtonModule,
     TableModule, NgStyle, BadgeModule,
-    TooltipModule],
+    TooltipModule, PessoaGridComponent],
   templateUrl: './pessoa-pesquisa.component.html',
   styleUrl: './pessoa-pesquisa.component.css'
 })
