@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputMaskModule } from 'primeng/inputmask';
 
 import { FormsModule } from '@angular/forms';
-import { MessageComponent } from '../../message/message.component';
+import { MessageComponent } from '../../shared/message/message.component';
 
 @Component({
   selector: 'app-pessoa-cadastro',
