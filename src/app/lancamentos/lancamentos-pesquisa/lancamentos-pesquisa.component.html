@@ -1,34 +1,82 @@
 <div class="container">
   <div class="grid">
 
-    <div class="col-12">
-      <h1>Lançamentos</h1>
-    </div>
-
-    <div class="col-12">
-      <label class="font-bold block mb-2">Descrição</label>
-      <input pInputText [fluid]="true" type="text">
-    </div>
-
-    <div class="col-12">
-      <label class="font-bold block mb-2">Vencimento</label>
-        <p-datepicker [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" dateFormat="dd/mm/yy"/>
-
-        <label class="font-bold block mb-2" >Até</label>
-        <p-datepicker [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" dateFormat="dd/mm/yy"/>
+    <form (ngSubmit)="pesquisar()">
 
       <div class="col-12">
-        <p-button type="submit" label="Pesquisar" severity="info"/>
+        <h1>Lançamentos</h1>
       </div>
-    </div>
+
+      <div class="col-12">
+        <label class="font-bold block mb-2">Descrição</label>
+        <input pInputText [fluid]="true" type="text" name="descricao" [(ngModel)]="descricao">
+      </div>
+
+      <div class="col-12">
+        <label style="display: block">Vencimento</label>
+        <p-datepicker [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" dateFormat="dd/mm/yy"
+          name="vencimentoInicio" [(ngModel)]="dataVencimentoInicio" />
+
+        <label class="label">Até</label>
+        <p-datepicker [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" dateFormat="dd/mm/yy"
+          name="vencimentoFim" [(ngModel)]="dataVencimentoFim" />
+
+        <div class="col-12">
+          <p-button type="submit" label="Pesquisar" severity="info" />
+        </div>
+      </div>
+    </form>
+
     <div class="grid">
       <div class="col-12">
-        <app-lancamento-grid [lancamentos]="lancamentos"></app-lancamento-grid>
+        <p-table [value]="lancamentos" stripedRows [paginator]="true" [rows]="10" responsiveLayout="stack"
+          [tableStyle]="{'min-width': '50rem'}">
+          <ng-template #header>
+            <tr>
+              <th pSortableColumn="tipo" style="width:20%">
+                Tipo <p-sortIcon field="tipo" />
+              </th>
+              <th pSortableColumn="pessoa" style="width:20%">
+                Nome <p-sortIcon field="pessoa" /></th>
+              <th pSortableColumn="descricao" style="width:20%">
+                Descrição <p-sortIcon field="descricao" /></th>
+              <th pSortableColumn="dataVencimento" style="width:20%">
+                Data Vencimento <p-sortIcon field="dataVencimento" /></th>
+              <th pSortableColumn="dataPagamento" style="width:20%">
+                Data Pagamento <p-sortIcon field="dataPagamento" /></th>
+              <th pSortableColumn="valor" style="width:20%">
+                Valor <p-sortIcon field="valor" /></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-lancamento>
+            <tr>
+              <td>{{lancamento.tipo}}</td>
+              <td>{{lancamento.pessoa}}</td>
+              <td>{{lancamento.descricao}}</td>
+              <td>{{lancamento.dataVencimento | date:'dd/MM/y'}}</td>
+              <td>{{lancamento.dataPagamento | date:'dd/MM/y'}}</td>
+              <td [ngStyle]="conditionalType(lancamento)">
+                {{lancamento.valor | currency:'BRL':true}}
+              </td>
+              <td class="col-acoes" style="display: block">
+                <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" severity="info"></a>
+                <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" severity="info"
+                  (click)="excluir(lancamento)"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="6">
+                Nenhum lançamento encontrado
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
     </div>
     <div class="grid col-12">
       <a pButton label="Novo Lançamento" severity="info"></a>
     </div>
-
   </div>
 </div>

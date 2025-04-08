@@ -5,12 +5,13 @@ import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { PessoaPesquisaComponent } from "./pessoas/pessoa-pesquisa/pessoa-pesquisa.component";
 import { LancamentoCadastroComponent } from "./lancamentos/lancamento-cadastro/lancamento-cadastro.component";
+import { LancamentosPesquisaComponent } from "./lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [LancamentosModule, NavbarComponent, PessoasModule,
-    Message, PessoaPesquisaComponent, LancamentoCadastroComponent],
+    Message, PessoaPesquisaComponent, LancamentoCadastroComponent, LancamentosPesquisaComponent],
 templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

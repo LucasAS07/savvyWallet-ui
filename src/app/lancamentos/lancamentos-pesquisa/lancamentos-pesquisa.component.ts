@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
@@ -8,37 +8,55 @@ import { BadgeModule } from 'primeng/badge';
 import { TooltipModule } from 'primeng/tooltip';
 import { DatePipe,CurrencyPipe } from '@angular/common';
 import { DatePickerModule } from 'primeng/datepicker';
-import { LancamentoGridComponent } from '../lancamento-grid/lancamento-grid.component';
-
+import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
+import { FormsModule } from '@angular/forms';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
   standalone: true,
   imports: [InputTextModule, DatePickerModule,
-    StyleClassModule, ButtonModule,
-    TableModule, BadgeModule,
-    TooltipModule, LancamentoGridComponent],
+    StyleClassModule, ButtonModule, NgStyle,
+    TableModule, BadgeModule, DatePipe, CurrencyPipe,
+    TooltipModule,FormsModule],
   templateUrl: './lancamentos-pesquisa.component.html',
   styleUrl: './lancamentos-pesquisa.component.css'
 })
-export class LancamentosPesquisaComponent {
+export class LancamentosPesquisaComponent implements OnInit{
 
-  lancamentos: object  [] = [
-    { tipo: 'DESPESA', descricao: 'Compra de pão', dataVencimento: new Date(2017,6,30),
-      dataPagamento: new Date(), valor: 4.55, pessoa: 'Padaria do José' },
-    { tipo: 'RECEITA', descricao: 'Venda de software', dataVencimento: new Date(2017,6,10),
-      dataPagamento: new Date(2017,6,9), valor: 80000, pessoa: 'Atacado Brasil' },
-    { tipo: 'DESPESA', descricao: 'Impostos', dataVencimento: new Date(2017,7,20),
-      dataPagamento: new Date(), valor: 14312, pessoa: 'Ministério da Fazenda' },
-    { tipo: 'DESPESA', descricao: 'Mensalidade de escola', dataVencimento: new Date(2017,6,5),
-      dataPagamento: new Date(2017,5,30), valor: 800, pessoa: 'Escola Abelha Rainha' },
-    { tipo: 'RECEITA', descricao: 'Venda de carro', dataVencimento: new Date(2017,8,18),
-      dataPagamento: new Date(), valor: 55000, pessoa: 'Sebastião Souza' },
-    { tipo: 'DESPESA', descricao: 'Aluguel', dataVencimento: new Date(2017,7,10),
-      dataPagamento: new Date(2017,7,9), valor: 1750, pessoa: 'Casa Nova Imóveis' },
-    { tipo: 'DESPESA', descricao: 'Mensalidade musculação', dataVencimento: new Date(2017,7,13),
-      dataPagamento: new Date(), valor: 180, pessoa: 'Academia Top' }
-  ]
+  descricao = '';
+  dataVencimentoInicio?: Date;
+  dataVencimentoFim?: Date;
+  lancamentos: any[] = [];
+  @ViewChild('tabela') grid!: Table;
+
+  constructor(private lancamentoService: LancamentoService){}
+
+  ngOnInit(): void {
+      this.pesquisar();
+  }
+
+  pesquisar(): void{
+    const filtro: LancamentoFiltro = {
+      descricao: this.descricao,
+      dataVencimentoInicio: this.dataVencimentoInicio,
+      dataVencimentoFim: this.dataVencimentoFim
+    }
+    this.lancamentoService.pesquisar(filtro)
+      .then(lancamentos => this.lancamentos = lancamentos);
+  }
+
+    conditionalType(lancamentos: any){
+      if(lancamentos.tipo === 'DESPESA') return {color: '#D76C82'}
+      else return {color: 'green'}
+    }
+
+  excluir(lancamento: any) {
+    this.lancamentoService.excluir(lancamento.codigo)
+      .then(() => {
+        this.grid.reset();
+      });
+  }
 
 
 }
