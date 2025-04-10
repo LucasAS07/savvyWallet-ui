@@ -8,6 +8,9 @@ import  Aura  from '@primeng/themes/aura';
 import { routes } from './app.routes';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 export const appConfig: ApplicationConfig = {
   providers: [ HttpClient,
@@ -20,6 +23,10 @@ export const appConfig: ApplicationConfig = {
         }
     }),
     provideHttpClient(),
-    DatePipe
+    DatePipe,
+    ToastModule,
+    MessageService,
+    ConfirmDialogModule,
+    ConfirmationService
   ]
 };

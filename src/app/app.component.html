@@ -3,3 +3,12 @@
 <!-- <app-lancamento-cadastro></app-lancamento-cadastro> -->
 <app-lancamentos-pesquisa></app-lancamentos-pesquisa>
 <!-- <app-pessoa-pesquisa></app-pessoa-pesquisa> -->
+<p-toast></p-toast>
+<p-confirmDialog header="Confirmação" icon="pi pi-question-circle" #confirmacao>
+  <p-footer>
+    <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
+  </p-footer>
+</p-confirmDialog>
+
+
+

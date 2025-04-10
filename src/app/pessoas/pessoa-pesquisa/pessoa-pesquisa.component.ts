@@ -1,32 +1,50 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { PessoaService, PessoaFiltro } from '../pessoa.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { NgStyle } from '@angular/common';
+import { Table, TableModule } from 'primeng/table';
 import { BadgeModule } from 'primeng/badge';
 import { TooltipModule } from 'primeng/tooltip';
-import { PessoaGridComponent } from "../pessoa-grid/pessoa-grid.component";
+import { FormsModule } from '@angular/forms';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-pessoa-pesquisa',
   standalone: true,
   imports: [InputTextModule,
-    StyleClassModule, ButtonModule,
-    TableModule, NgStyle, BadgeModule,
-    TooltipModule, PessoaGridComponent],
+  StyleClassModule, ButtonModule,
+    TableModule, BadgeModule,
+    TooltipModule, FormsModule],
   templateUrl: './pessoa-pesquisa.component.html',
   styleUrl: './pessoa-pesquisa.component.css'
 })
-export class PessoaPesquisaComponent {
-  pessoas: Object[] = [
-    { nome: 'Manoel Pinheiro', cidade: 'Uberlândia', estado: 'MG', ativo: true },
-    { nome: 'Sebastião da Silva', cidade: 'São Paulo', estado: 'SP', ativo: false },
-    { nome: 'Carla Souza', cidade: 'Florianópolis', estado: 'SC', ativo: true },
-    { nome: 'Luís Pereira', cidade: 'Curitiba', estado: 'PR', ativo: true },
-    { nome: 'Vilmar Andrade', cidade: 'Rio de Janeiro', estado: 'RJ', ativo: false },
-    { nome: 'Paula Maria', cidade: 'Uberlândia', estado: 'MG', ativo: true }
-  ]
+export class PessoaPesquisaComponent{
+
+  nome = '';
+  pessoas: any[] = [];
+  @ViewChild('tabela') grid!: Table;
+
+  constructor(private pessoaService: PessoaService){}
+
+  ngOnInit(){
+    this.pesquisar();
+  }
+
+  pesquisar(): void{
+    const filtro: PessoaFiltro = {
+      nome: this.nome
+    }
+
+    this.pessoaService.pesquisar(filtro)
+      .then(pessoas => this.pessoas = pessoas);
+  }
+
+  excluir(pessoa: any) {
+    this.pessoaService.excluir(pessoa.codigo)
+      .then(() => {
+        this.grid.reset();
+      });
+  }
 
 }

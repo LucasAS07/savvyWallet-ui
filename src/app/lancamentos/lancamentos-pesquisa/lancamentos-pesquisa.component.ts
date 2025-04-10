@@ -11,6 +11,8 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
 import { FormsModule } from '@angular/forms';
 import { Table } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -18,7 +20,7 @@ import { Table } from 'primeng/table';
   imports: [InputTextModule, DatePickerModule,
     StyleClassModule, ButtonModule, NgStyle,
     TableModule, BadgeModule, DatePipe, CurrencyPipe,
-    TooltipModule,FormsModule],
+    TooltipModule,FormsModule,ToastModule],
   templateUrl: './lancamentos-pesquisa.component.html',
   styleUrl: './lancamentos-pesquisa.component.css'
 })
@@ -30,7 +32,9 @@ export class LancamentosPesquisaComponent implements OnInit{
   lancamentos: any[] = [];
   @ViewChild('tabela') grid!: Table;
 
-  constructor(private lancamentoService: LancamentoService){}
+  constructor(private lancamentoService: LancamentoService,
+    private messageService: MessageService,
+    private confirm: ConfirmationService){}
 
   ngOnInit(): void {
       this.pesquisar();
@@ -51,11 +55,26 @@ export class LancamentosPesquisaComponent implements OnInit{
       else return {color: 'green'}
     }
 
+    confirmarExclucao(lancamento: any){
+      this.confirm.confirm({
+        message: 'Deseja Realmente Excluir?',
+        accept: () => {
+          this.excluir(lancamento)
+        }
+      })
+    }
+
   excluir(lancamento: any) {
     this.lancamentoService.excluir(lancamento.codigo)
       .then(() => {
+        if (this.grid.first === 0){
+          this.pesquisar();
+        }else{
         this.grid.reset();
+        }
       });
+
+      this.messageService.add({ severity: 'success', summary: 'Sucesso' ,detail: 'Lançamento excluído com sucesso!' })
   }
 
 

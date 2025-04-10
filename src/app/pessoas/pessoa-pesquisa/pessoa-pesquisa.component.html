@@ -1,24 +1,62 @@
 <div class="container">
   <div class="grid">
-
+    <form (ngSubmit)="pesquisar()">
     <div class="col-12">
       <h1>Pessoas</h1>
     </div>
 
     <div class="col-12">
       <label class="font-bold block mb-2">Nome</label>
-      <input pInputText [fluid]="true" type="text">
+      <input pInputText [fluid]="true" type="text" name="nome" [(ngModel)]="nome">
     </div>
 
-    <div class="col-12">
+
       <div class="col-12">
         <p-button type="submit" label="Pesquisar" severity="info" />
       </div>
+    </form>
     </div>
 
     <div class="grid">
       <div class="col-12">
-        <app-pessoa-grid [pessoas]="pessoas"></app-pessoa-grid>
+        <p-table [value]="pessoas" stripedRows [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30,50,100]"
+          responsiveLayout="stack" [tableStyle]="{'min-width': '50rem'}">
+          <ng-template #header>
+            <tr>
+              <th pSortableColumn="nome" style="width:20%">
+                Nome <p-sortIcon field="nome" />
+              </th>
+              <th pSortableColumn="cidade" style="width:20%">
+                Cidade <p-sortIcon field="cidade" /></th>
+              <th pSortableColumn="estado" style="width:20%">
+                Estado <p-sortIcon field="estado" /></th>
+              <th pSortableColumn="status" style="width:20%">
+                Status <p-sortIcon field="status" /></th>
+          </ng-template>
+          <ng-template pTemplate="body" let-pessoa>
+            <tr>
+              <td>{{pessoa.nome}}</td>
+              <td>{{pessoa.endereco.cidade}}</td>
+              <td>{{pessoa.endereco.estado}}</td>
+              <td>
+                <a href="javascript:;" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top">
+                  {{pessoa.ativo ? 'Ativo' : 'Inativo'}}
+                </a>
+              </td>
+              <td class="col-acoes" style="display: block">
+                <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" severity="info"></a>
+                <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" severity="info"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="5">
+                Nenhuma pessoa encontrada
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
     </div>
 
@@ -27,4 +65,3 @@
     </div>
 
   </div>
-</div>
