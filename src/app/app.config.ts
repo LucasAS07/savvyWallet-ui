@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, LOCALE_ID, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import { provideRouter } from '@angular/router';
@@ -11,6 +11,8 @@ import { DatePipe } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 
 export const appConfig: ApplicationConfig = {
   providers: [ HttpClient,
@@ -27,6 +29,6 @@ export const appConfig: ApplicationConfig = {
     ToastModule,
     MessageService,
     ConfirmDialogModule,
-    ConfirmationService
+    ConfirmationService,
   ]
 };

@@ -7,7 +7,7 @@ import { LancamentosPesquisaComponent } from "./lancamentos/lancamentos-pesquisa
 import { PessoaPesquisaComponent } from "./pessoas/pessoa-pesquisa/pessoa-pesquisa.component";
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService} from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 
 
@@ -21,7 +21,10 @@ templateUrl: './app.component.html',
 })
 export class AppComponent {
 
-  constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+  constructor(
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService){}
+
 
     confirm2(event: Event) {
         this.confirmationService.confirm({
