@@ -1,34 +1,35 @@
 <div class="container">
-  <form>
+  <form #lancamentoForm="ngForm" (ngSubmit)="salvar(lancamentoForm)">
     <div class="grid">
       <div class="col-12">
         <h1>Novo Lançamento</h1>
       </div>
 
       <div class="col-12">
-        <p-selectbutton [options]="stateOptions" optionLabel="label" optionValue="value" aria-labelledby="basic"
-          #tipo />
+        <p-selectbutton [options]="stateOptions" name="tipo" optionLabel="label" optionValue="value"
+          aria-labelledby="basic" #tipo [(ngModel)]="lancamento.tipo" />
       </div>
 
       <div class="col-6 md:col-3">
         <label class="font-bold block mb-2">Vencimento</label>
         <p-datepicker [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" dateFormat="dd/mm/yy"
-        name="vencimento" ngModel #vencimento="ngModel" required/>
+          name="vencimento" ngModel #vencimento="ngModel" required [(ngModel)]="lancamento.dataVencimento" />
 
-          <app-message [control]="vencimento" error="required" text="Informe um vencimento"></app-message>
+        <app-message [control]="vencimento" error="required" text="Informe um vencimento"></app-message>
       </div>
 
       <div class="col-6 md:col-3">
         <label class="font-bold block mb-2">{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
         <p-datepicker [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" dateFormat="dd/mm/yy"
-        name="pagamento" ngModel #pagamento="ngModel" required/>
+          name="pagamento" ngModel #pagamento="ngModel" required [(ngModel)]="lancamento.dataPagamento" />
 
         <app-message [control]="pagamento" error="required" text="Informe uma categoria"></app-message>
       </div>
 
       <div class="col-12 md:col-9 p-fluid">
         <label class="font-bold block mb-2">Descrição</label>
-        <input pInputText [fluid]="true" type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
+        <input pInputText [fluid]="true" type="text" name="descricao" ngModel #descricao="ngModel" required
+          minlength="5" [(ngModel)]="lancamento.descricao">
 
         <app-message [control]="descricao" error="required" text="Informe uma descrição"></app-message>
         <app-message [control]="descricao" error="minlength" text="Tamanho minimo é 5 caracters"></app-message>
@@ -38,31 +39,32 @@
 
       <div class="col-12 md:col-3">
         <label class="font-bold block mb-2">Valor</label>
-        <p-inputnumber inputId="valor" name="valor"  mode="currency" currency="BRL" locale="pt-BR"
-          [fluid]="true"/>
+        <p-inputnumber inputId="valor" name="valor" mode="currency" currency="BRL" locale="pt-BR" [fluid]="true"
+          [(ngModel)]="lancamento.valor" />
 
 
       </div>
 
       <div class="col-12 md:col-6">
         <label class="font-bold block mb-2">Categoria</label>
-        <p-select [options]="categorias" optionLabel="label" placeholder="Selectione a Categoria" [fluid]="true"
-        name="categoria" ngModel #categoria="ngModel" required/>
+        <p-select [options]="categorias"  placeholder="Selectione a Categoria" [fluid]="true"
+          name="categoria" ngModel #categoria="ngModel" required [(ngModel)]="lancamento.categoria.codigo" />
 
         <app-message [control]="categoria" error="required" text="Informe uma categoria"></app-message>
       </div>
 
       <div class="col-12 md:col-6">
         <label class="font-bold block mb-2">Pessoa</label>
-        <p-select [options]="pessoas" optionLabel="label" placeholder="Selectione uma Pessoa" [fluid]="true"
-        name="pessoa" ngModel #pessoa="ngModel" required/>
+        <p-select [options]="pessoas"  placeholder="Selectione uma Pessoa" [fluid]="true"
+          name="pessoa"  ngModel #pessoa="ngModel" required [(ngModel)]="lancamento.pessoa.codigo" />
 
         <app-message [control]="pessoa" error="required" text="Informe uma pessoa"></app-message>
       </div>
 
       <div class="col-12">
         <label class="font-bold block mb-2">Observação</label>
-        <textarea rows="5" cols="30" pTextarea [autoResize]="true" [fluid]="true"></textarea>
+        <textarea pInputTextarea rows="5" name="observacao" cols="30" pTextarea [autoResize]="true" [fluid]="true"
+          [(ngModel)]="lancamento.observacao"></textarea>
       </div>
 
       <div class="col-12">

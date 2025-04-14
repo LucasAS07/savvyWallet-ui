@@ -6,13 +6,12 @@ import { provideHttpClient } from "@angular/common/http";
 import  Aura  from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
 
 export const appConfig: ApplicationConfig = {
   providers: [ HttpClient,

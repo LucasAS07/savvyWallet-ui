@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ErrorHandlerService } from '../../core/error-handler.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -34,7 +35,8 @@ export class LancamentosPesquisaComponent implements OnInit{
 
   constructor(private lancamentoService: LancamentoService,
     private messageService: MessageService,
-    private confirm: ConfirmationService){}
+    private confirm: ConfirmationService,
+    private errorHandler: ErrorHandlerService){}
 
   ngOnInit(): void {
       this.pesquisar();
@@ -47,7 +49,8 @@ export class LancamentosPesquisaComponent implements OnInit{
       dataVencimentoFim: this.dataVencimentoFim
     }
     this.lancamentoService.pesquisar(filtro)
-      .then(lancamentos => this.lancamentos = lancamentos);
+      .then(lancamentos => this.lancamentos = lancamentos)
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
     conditionalType(lancamentos: any){
@@ -72,9 +75,10 @@ export class LancamentosPesquisaComponent implements OnInit{
         }else{
         this.grid.reset();
         }
-      });
+        this.messageService.add({ severity: 'success', summary: 'Sucesso' ,detail: 'Lançamento excluído com sucesso!' })
+      })
+      .catch(erro => this.errorHandler.handle(erro));
 
-      this.messageService.add({ severity: 'success', summary: 'Sucesso' ,detail: 'Lançamento excluído com sucesso!' })
   }
 
 

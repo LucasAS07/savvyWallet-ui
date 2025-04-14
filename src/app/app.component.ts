@@ -2,20 +2,19 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from "./core/navbar/navbar.component";
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoasModule } from './pessoas/pessoas.module';
-import { LancamentoCadastroComponent } from "./lancamentos/lancamento-cadastro/lancamento-cadastro.component";
-import { LancamentosPesquisaComponent } from "./lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component";
-import { PessoaPesquisaComponent } from "./pessoas/pessoa-pesquisa/pessoa-pesquisa.component";
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService} from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { PessoaCadastroComponent } from "./pessoas/pessoa-cadastro/pessoa-cadastro.component";
+import { LancamentoCadastroComponent } from "./lancamentos/lancamento-cadastro/lancamento-cadastro.component";
+import { LancamentosPesquisaComponent } from "./lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LancamentosModule, NavbarComponent, PessoasModule, ToastModule, ConfirmDialogModule
-    , LancamentoCadastroComponent, LancamentosPesquisaComponent, PessoaPesquisaComponent,ButtonModule],
+  imports: [LancamentosModule, NavbarComponent, PessoasModule, ToastModule, ConfirmDialogModule, ButtonModule, PessoaCadastroComponent, LancamentoCadastroComponent, LancamentosPesquisaComponent],
 templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

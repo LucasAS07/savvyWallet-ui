@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { Lancamento } from '../core/model';
+import { firstValueFrom } from 'rxjs';
 
 
 export interface LancamentoFiltro {
@@ -52,4 +54,13 @@ export class LancamentoService {
     .toPromise();
   }
 
-}
+  adicionar(lancamento: Lancamento): Promise<Lancamento> {
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
+      .append('Content-Type', 'application/json');
+
+      return firstValueFrom(
+        this.http.post<Lancamento>(`${this.lancamentoUrl}`, lancamento, { headers })
+      );
+    }
+  }
