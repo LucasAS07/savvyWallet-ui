@@ -8,7 +8,7 @@
       <div class="col-12">
         <label class="font-bold block mb-2">Nome</label>
         <input pInputText [fluid]="true" type="text" name="nome" ngModel #nome="ngModel" required minlength="5"
-        [(ngModel)]="pessoa.nome">
+          [(ngModel)]="pessoa.nome">
 
         <app-message [control]="nome" error="required" text="Informe um nome"></app-message>
         <app-message [control]="nome" error="minlength" text="Tamanho minimo é 5 caracters"></app-message>
@@ -17,7 +17,7 @@
       <div class="col-12 md:col-9">
         <label class="font-bold block mb-2">Logradouro</label>
         <input pInputText [fluid]="true" type="text" name="logradouro" ngModel #logradouro="ngModel" required
-        [(ngModel)]="pessoa.endereco.logradouro">
+          [(ngModel)]="pessoa.endereco.logradouro">
 
         <app-message [control]="logradouro" error="required" text="Informe um logradouro"></app-message>
       </div>
@@ -25,7 +25,7 @@
       <div class="col-12 md:col-3">
         <label class="font-bold block mb-2">Número</label>
         <input pInputText [fluid]="true" type="text" name="numero" ngModel #numero="ngModel" required
-        [(ngModel)]="pessoa.endereco.numero">
+          [(ngModel)]="pessoa.endereco.numero">
 
         <app-message [control]="numero" error="required" text="Informe um numero"></app-message>
       </div>
@@ -37,24 +37,24 @@
 
       <div class="col-12 md:col-4">
         <label class="font-bold block mb-2">Bairro</label>
-        <input type="text" pInputText [fluid]="true" name="bairro"
-        [(ngModel)]="pessoa.endereco.bairro" ngModel #bairro="ngModel" required>
+        <input type="text" pInputText [fluid]="true" name="bairro" [(ngModel)]="pessoa.endereco.bairro" ngModel
+          #bairro="ngModel" required>
 
         <app-message [control]="bairro" error="required" text="Informe um bairro"></app-message>
       </div>
 
       <div class="col-12 md:col-4">
         <label class="font-bold block mb-2">CEP</label>
-        <p-inputmask mask="99999-999" placeholder="00000-000" name="cep"
-        [(ngModel)]="pessoa.endereco.cep" ngModel #cep="ngModel" required/>
+        <p-inputmask mask="99999-999" placeholder="00000-000" name="cep" [(ngModel)]="pessoa.endereco.cep" ngModel
+          #cep="ngModel" required />
 
         <app-message [control]="cep" error="required" text="Informe um CEP"></app-message>
       </div>
 
       <div class="col-12 md:col-6">
         <label class="font-bold block mb-2">Cidade</label>
-        <input type="text" pInputText [fluid]="true" name="cidade"
-        [(ngModel)]="pessoa.endereco.cidade" ngModel #cidade="ngModel" required>
+        <input type="text" pInputText [fluid]="true" name="cidade" [(ngModel)]="pessoa.endereco.cidade" ngModel
+          #cidade="ngModel" required>
 
       </div>
 
@@ -64,9 +64,11 @@
       </div>
 
       <div class="col-12">
-        <button pButton type="submit" label="Salvar" severity="info" icon="pi pi-save" iconPos="right"></button>
-        <button pButton type="submit" label="Novo" severity="info" icon="pi pi-plus" iconPos="right"></button>
-        <a href="javascript::">Voltar para pesquisa</a>
+        <button pButton type="submit" label="Salvar" severity="info" icon="pi pi-save" iconPos="right"
+          [disabled]="pessoaForm.invalid"></button>
+        <button pButton type="button" label="Novo" severity="info" icon="pi pi-plus" iconPos="right"
+          (click)="novo(pessoaForm)"></button>
+        <a routerLink="/pessoas">Voltar para pesquisa</a>
 
       </div>
 

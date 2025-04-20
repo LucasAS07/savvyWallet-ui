@@ -6,15 +6,16 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService} from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { PessoaCadastroComponent } from "./pessoas/pessoa-cadastro/pessoa-cadastro.component";
-import { LancamentoCadastroComponent } from "./lancamentos/lancamento-cadastro/lancamento-cadastro.component";
 import { LancamentosPesquisaComponent } from "./lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component";
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LancamentosModule, NavbarComponent, PessoasModule, ToastModule, ConfirmDialogModule, ButtonModule, PessoaCadastroComponent, LancamentoCadastroComponent, LancamentosPesquisaComponent],
+  imports: [LancamentosModule, NavbarComponent, PessoasModule, ToastModule,
+    ConfirmDialogModule, ButtonModule, LancamentosPesquisaComponent,
+    RouterModule],
 templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

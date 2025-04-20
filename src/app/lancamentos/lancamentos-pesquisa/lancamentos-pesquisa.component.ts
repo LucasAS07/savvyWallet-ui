@@ -3,7 +3,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { NgStyle } from '@angular/common';
+import { NgFor, NgStyle } from '@angular/common';
 import { BadgeModule } from 'primeng/badge';
 import { TooltipModule } from 'primeng/tooltip';
 import { DatePipe,CurrencyPipe } from '@angular/common';
@@ -11,17 +11,17 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
 import { FormsModule } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ErrorHandlerService } from '../../core/error-handler.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
   standalone: true,
   imports: [InputTextModule, DatePickerModule,
-    StyleClassModule, ButtonModule, NgStyle,
+    StyleClassModule, ButtonModule, NgStyle, RouterModule,
     TableModule, BadgeModule, DatePipe, CurrencyPipe,
-    TooltipModule,FormsModule,ToastModule],
+    TooltipModule,FormsModule],
   templateUrl: './lancamentos-pesquisa.component.html',
   styleUrl: './lancamentos-pesquisa.component.css'
 })
@@ -80,6 +80,8 @@ export class LancamentosPesquisaComponent implements OnInit{
       .catch(erro => this.errorHandler.handle(erro));
 
   }
+
+  
 
 
 }

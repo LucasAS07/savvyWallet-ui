@@ -29,8 +29,9 @@
 
     <div class="grid">
       <div class="col-12">
-        <p-table [value]="lancamentos" stripedRows [paginator]="true" [rows]="10" responsiveLayout="stack"
-          [tableStyle]="{'min-width': '50rem'}" #tabela>
+        <p-table [value]="lancamentos" stripedRows [paginator]="true" [rows]="10"
+          [rowsPerPageOptions]="[5, 10,20,30,50,100]" responsiveLayout="stack" [tableStyle]="{'min-width': '50rem'}"
+          #tabela>
           <ng-template #header>
             <tr>
               <th pSortableColumn="tipo" style="width:20%">
@@ -59,7 +60,8 @@
                 {{lancamento.valor | currency:'BRL':true}}
               </td>
               <td class="col-acoes" style="display: block">
-                <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" severity="info"></a>
+                <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" severity="info"
+                [routerLink]="['/lancamentos', lancamento.codigo]"></a>
                 <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" severity="info"
                   (click)="confirmarExclucao(lancamento)"></button>
               </td>
@@ -76,7 +78,7 @@
       </div>
     </div>
     <div class="grid col-12">
-      <a pButton label="Novo Lançamento" severity="info"></a>
+      <a pButton label="Novo Lançamento" routerLink="/lancamentos/novo" severity="info"></a>
     </div>
   </div>
 </div>

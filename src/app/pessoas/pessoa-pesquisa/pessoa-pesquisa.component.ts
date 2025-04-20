@@ -10,11 +10,12 @@ import { FormsModule } from '@angular/forms';
 import { NgStyle } from '@angular/common';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ErrorHandlerService } from '../../core/error-handler.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-pessoa-pesquisa',
   standalone: true,
-  imports: [InputTextModule,
+  imports: [InputTextModule, RouterModule,
   StyleClassModule, ButtonModule,
     TableModule, BadgeModule,
     TooltipModule, FormsModule],
