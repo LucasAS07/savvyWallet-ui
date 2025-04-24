@@ -18,7 +18,7 @@ export class PessoaService {
 
   pesquisar(filtro: PessoaFiltro): Promise<any>{
     const headers = new HttpHeaders()
-    .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
+      .append('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
     let params = new HttpParams();
 
@@ -34,7 +34,7 @@ export class PessoaService {
 
   listarTodas(): Promise<any> {
     const headers = new HttpHeaders()
-      .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+      .append('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
     return this.http.get(this.pessoaUrl, { headers })
       .toPromise()
@@ -43,7 +43,7 @@ export class PessoaService {
 
   excluir(codigo: number): Promise<void>{
     const headers = new HttpHeaders()
-    .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
+      .append('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
     return this.http.delete<void>(`${this.pessoaUrl}/${codigo}`, {headers})
     .toPromise();
@@ -51,8 +51,7 @@ export class PessoaService {
 
   mudarStatus(codigo: number, ativo: boolean): Promise<void>{
     const headers = new HttpHeaders()
-    .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
-    .append('Content-Type', 'application/json')
+      .append('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
     return this.http.put<void>(`${this.pessoaUrl}/${codigo}/ativo`, ativo, { headers })
       .toPromise();
@@ -60,17 +59,15 @@ export class PessoaService {
 
   adicionar(pessoa: Pessoa): Promise<Pessoa> {
     const headers = new HttpHeaders()
-      .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
-      .append('Content-Type', 'application/json');
+      .append('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
     return this.http.post<any>(this.pessoaUrl, pessoa, { headers })
       .toPromise();
   }
 
    atualizar(pessoa: Pessoa): Promise<Pessoa> {
-        const headers = new HttpHeaders()
-          .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
-          .append('Content-Type', 'application/json');
+    const headers = new HttpHeaders()
+    .append('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
         return this.http.put<Pessoa>(`${this.pessoaUrl}/${pessoa.codigo}`, pessoa, { headers })
           .toPromise()
@@ -81,8 +78,7 @@ export class PessoaService {
 
       buscarPorCodigo(codigo: number): Promise<Pessoa> {
         const headers = new HttpHeaders()
-        .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
-        .append('Content-Type', 'application/json');
+      .append('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
         return this.http.get(`${this.pessoaUrl}/${codigo}`, { headers })
         .toPromise()

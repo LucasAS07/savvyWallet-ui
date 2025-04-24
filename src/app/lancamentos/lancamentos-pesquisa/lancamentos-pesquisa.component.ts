@@ -14,6 +14,8 @@ import { Table } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ErrorHandlerService } from '../../core/error-handler.service';
 import { RouterModule } from '@angular/router';
+import { SegurancaModule } from '../../seguranca/seguranca.module';
+import { AuthService } from '../../seguranca/auth.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -34,6 +36,7 @@ export class LancamentosPesquisaComponent implements OnInit{
   @ViewChild('tabela') grid!: Table;
 
   constructor(private lancamentoService: LancamentoService,
+    private auth: AuthService,
     private messageService: MessageService,
     private confirm: ConfirmationService,
     private errorHandler: ErrorHandlerService){}
@@ -81,7 +84,9 @@ export class LancamentosPesquisaComponent implements OnInit{
 
   }
 
-  
+  naoTemPermissao(permissao: string) {
+    return !this.auth.temPermissao(permissao);
+  }
 
 
 }

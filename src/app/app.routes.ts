@@ -4,16 +4,32 @@ import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/l
 import { PessoaPesquisaComponent } from './pessoas/pessoa-pesquisa/pessoa-pesquisa.component';
 import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadastro.component';
 import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
+import { LoginComponent } from './seguranca/login/login.component';
+import { AuthGuard } from './seguranca/auth.guard';
+import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
 
 export const routes: Routes = [
   {path: '',redirectTo: 'lancamentos', pathMatch: 'full'},
-  {path: 'lancamentos',component: LancamentosPesquisaComponent},
-  {path: 'lancamentos/novo',component: LancamentoCadastroComponent},
-  {path: 'lancamentos/:codigo',component: LancamentoCadastroComponent},
+  {path: 'lancamentos',component: LancamentosPesquisaComponent, canActivate: [AuthGuard],
+     data: {roles: ['ROLE_PESQUISAR_LANCAMENTO']}},
+  {path: 'lancamentos/novo',component: LancamentoCadastroComponent, canActivate: [AuthGuard],
+    data: {roles: ['ROLE_CADASTRAR_LANCAMENTO']}
+  },
+  {path: 'lancamentos/:codigo',component: LancamentoCadastroComponent, canActivate: [AuthGuard],
+    data: {roles: ['ROLE_CADASTRAR_LANCAMENTO']}
+  },
 
-  {path: 'pessoas',component: PessoaPesquisaComponent},
-  {path: 'pessoas/novo',component: PessoaCadastroComponent},
-  {path: 'pessoas/:codigo',component: PessoaCadastroComponent},
+  {path: 'pessoas',component: PessoaPesquisaComponent, canActivate: [AuthGuard],
+    data: {roles: ['ROLE_PESQUISAR_PESSOA']}},
+  {path: 'pessoas/novo',component: PessoaCadastroComponent, canActivate: [AuthGuard],
+    data: {roles: ['ROLE_CADASTRAR_PESSOA']}
+  },
+  {path: 'pessoas/:codigo',component: PessoaCadastroComponent, canActivate: [AuthGuard],
+    data: {roles: ['ROLE_CADASTRAR_PESSOA']},
+  },
+
+  {path: 'login',component: LoginComponent},
+  {path: 'nao-autorizado',component: NaoAutorizadoComponent},
 
   {path: 'pagina-nao-encontrada',component: PaginaNaoEncontradaComponent},
   {path: '**', redirectTo: 'pagina-nao-encontrada'}

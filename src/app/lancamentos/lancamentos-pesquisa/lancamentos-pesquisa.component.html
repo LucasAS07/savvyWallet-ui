@@ -57,13 +57,13 @@
               <td>{{lancamento.dataVencimento | date:'dd/MM/y'}}</td>
               <td>{{lancamento.dataPagamento | date:'dd/MM/y'}}</td>
               <td [ngStyle]="conditionalType(lancamento)">
-                {{lancamento.valor | currency:'BRL':true}}
+                {{ lancamento.valor | currency:'BRL':true }}
               </td>
               <td class="col-acoes" style="display: block">
                 <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" severity="info"
                 [routerLink]="['/lancamentos', lancamento.codigo]"></a>
                 <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" severity="info"
-                  (click)="confirmarExclucao(lancamento)"></button>
+                  (click)="confirmarExclucao(lancamento)" [disabled]="naoTemPermissao('ROLE_REMOVER_LANCAMENTO')"></button>
               </td>
             </tr>
           </ng-template>

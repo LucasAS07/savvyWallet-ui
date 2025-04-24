@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from "./core/navbar/navbar.component";
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoasModule } from './pessoas/pessoas.module';
@@ -7,23 +7,28 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService} from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { LancamentosPesquisaComponent } from "./lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component";
-import { RouterModule } from '@angular/router';
-
+import { Router, RouterModule } from '@angular/router';
+import { NgIf } from '@angular/common';
+import { SegurancaModule } from './seguranca/seguranca.module';
+import { TranslateService } from '@ngx-translate/core';
+import { PrimeNG } from 'primeng/config';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [LancamentosModule, NavbarComponent, PessoasModule, ToastModule,
-    ConfirmDialogModule, ButtonModule, LancamentosPesquisaComponent,
-    RouterModule],
+  ConfirmDialogModule, ButtonModule,
+    RouterModule, NgIf ],
 templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent  {
 
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService){}
+    private messageService: MessageService,
+    private router: Router
+  ){}
 
 
     confirm2(event: Event) {
@@ -50,6 +55,10 @@ export class AppComponent {
                 this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
             },
         });
+    }
+
+    exibindoNavbar() {
+      return this.router.url !== '/login';
     }
 
 }

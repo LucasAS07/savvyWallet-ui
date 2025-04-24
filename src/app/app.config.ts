@@ -2,7 +2,7 @@ import { ApplicationConfig, LOCALE_ID, provideZoneChangeDetection } from '@angul
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from "@angular/common/http";
+import { HttpClientModule, provideHttpClient } from "@angular/common/http";
 import  Aura  from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
@@ -11,10 +11,13 @@ import { DatePipe } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { registerLocaleData } from '@angular/common';
+import { JWT_OPTIONS, JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { SegurancaModule } from './seguranca/seguranca.module';
+import { TranslateService, TranslateStore } from '@ngx-translate/core';
+
 
 export const appConfig: ApplicationConfig = {
-  providers: [ HttpClient,
+  providers: [ 
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
@@ -29,5 +32,14 @@ export const appConfig: ApplicationConfig = {
     MessageService,
     ConfirmDialogModule,
     ConfirmationService,
+    {
+      provide: JWT_OPTIONS,
+      useValue: {} // ou suas opções personalizadas
+    },
+    // JwtModule should be imported in the AppModule instead of being added here
+    JwtHelperService,
+    SegurancaModule,
+    TranslateStore,
+    TranslateService
   ]
 };
