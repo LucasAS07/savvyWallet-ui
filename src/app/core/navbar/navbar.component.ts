@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, ErrorHandler, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../seguranca/auth.service';
 import { NgIf } from '@angular/common';
+import { ErrorHandlerService } from '../error-handler.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,17 +13,29 @@ templateUrl: './navbar.component.html',
 })
 export class NavbarComponent implements OnInit{
 
-  exibindoMenu = true;
+  exibindoMenu = false;
   usuarioLogado: string = '';
 
   ngOnInit() {
     this.usuarioLogado = this.auth.jwtPayload.nome;
   }
 
-  constructor(private auth: AuthService){}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private erroHndler: ErrorHandlerService,
+  ){}
 
   temPermissao(permissao: string) {
     return this.auth.temPermissao(permissao);
+  }
+
+  logout(){
+    this.auth.logout()
+    .then(() => {
+      this.router.navigate(['/login']);
+    })
+    .catch(erro => this.erroHndler.handle(erro));
   }
 
 

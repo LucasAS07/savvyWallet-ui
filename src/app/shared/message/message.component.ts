@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl} from '@angular/forms';
+import { AbstractControl, FormControl} from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { Message, MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
@@ -26,11 +26,11 @@ template: `
 })
 export class MessageComponent {
   @Input() error: string = '';
-  @Input() control: any;
+  @Input() control?: AbstractControl | FormControl | null;
   @Input() text: string = '';
 
   temErro(): boolean {
-    return this.control.hasError(this.error) && this.control.dirty;
+    return this.control? this.control.hasError(this.error) && this.control.dirty : true;
   }
 
 }

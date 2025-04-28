@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SegurancaModule } from '../seguranca/seguranca.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -8,6 +9,7 @@ import { SegurancaModule } from '../seguranca/seguranca.module';
   declarations: [],
   imports: [
     CommonModule,
+    ReactiveFormsModule
   ],
 })
 export class LancamentosModule { }

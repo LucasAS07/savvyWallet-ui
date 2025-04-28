@@ -23,6 +23,9 @@ export class LancamentoService {
 
   pesquisar(filtro: LancamentoFiltro): Promise<any> {
 
+    const headers = new HttpHeaders()
+      .append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+
     let params = new HttpParams();
 
     if (filtro.descricao) {
@@ -37,7 +40,7 @@ export class LancamentoService {
         params = params.set('dataVencimentoAte', this.datePipe.transform(filtro.dataVencimentoFim, 'yyyy-MM-dd')!);
     }
 
-    return this.http.get(`${this.lancamentoUrl}?resumo`, { params})
+    return this.http.get(`${this.lancamentoUrl}?resumo`, { params, headers })
     .toPromise()
     .then((response: any) => response['content']);
 

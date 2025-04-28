@@ -9,6 +9,7 @@ import { AuthGuard } from './seguranca/auth.guard';
 import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
 
 export const routes: Routes = [
+
   {path: '',redirectTo: 'lancamentos', pathMatch: 'full'},
   {path: 'lancamentos',component: LancamentosPesquisaComponent, canActivate: [AuthGuard],
      data: {roles: ['ROLE_PESQUISAR_LANCAMENTO']}},
