@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Pessoa } from '../core/model';
+import { Cidade, Estado, Pessoa } from '../core/model';
+import { environment } from '../../environments/environment';
 
 export interface PessoaFiltro{
   nome: string;
@@ -12,9 +13,15 @@ export interface PessoaFiltro{
 
 export class PessoaService {
 
-  pessoaUrl = 'http://localhost:8080/pessoa'
+  pessoaUrl: string;
+  cidadeUrl: string;
+  estadoUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.pessoaUrl = `${environment.apiUrl}/pessoa`;
+    this.cidadeUrl = `${environment.apiUrl}/cidade`;
+    this.estadoUrl = `${environment.apiUrl}/estado`;
+  }
 
   pesquisar(filtro: PessoaFiltro): Promise<any>{
     const headers = new HttpHeaders()
@@ -26,7 +33,7 @@ export class PessoaService {
       params = params.set('nome', filtro.nome);
     }
 
-    return this.http.get(`${this.pessoaUrl}`,{headers, params})
+    return this.http.get(`${this.pessoaUrl}`,{params, headers})
     .toPromise()
     .then((respnse: any) => respnse['content']);
 
@@ -86,6 +93,25 @@ export class PessoaService {
           return response;
         });
       }
+
+  listarEstados(): Promise<Estado[]> {
+    const headers = new HttpHeaders()
+      .append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+
+    return this.http.get<Estado[]>(this.estadoUrl, { headers })
+      .toPromise()
+      .then((estados) => estados ?? []);
+  }
+
+  pesquisarCidades(estadoId: number): Promise<Cidade[]> {
+    const headers = new HttpHeaders()
+      .append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    const params = new HttpParams()
+      .set('estado', estadoId);
+
+    return this.http.get<Cidade[]>(this.cidadeUrl, { params, headers} ).toPromise()
+      .then((cidades) => cidades ?? []);
+  }
 
 
 }

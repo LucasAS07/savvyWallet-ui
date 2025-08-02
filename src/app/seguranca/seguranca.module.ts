@@ -12,6 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { LoginComponent } from './login/login.component';
 
 import { SavvyHttpInterceptor } from './savvy-http-interceptor';
+import { environment } from '../../environments/environment.prod';
 
 export function tokenGetter(): string {
   return localStorage.getItem('token')!;
@@ -27,8 +28,8 @@ export function tokenGetter(): string {
     JwtModule.forRoot({
       config: {
         tokenGetter,
-        allowedDomains: ['localhost:8080'],
-        disallowedRoutes: ['localhost:8080/oauth/token']
+        allowedDomains: environment.tokenAllowedDomains,
+        disallowedRoutes: environment.tokenDisallowedRoutes
       }
     }),
 

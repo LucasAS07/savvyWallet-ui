@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Lancamento } from '../core/model';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 
 export interface LancamentoFiltro {
@@ -17,9 +18,20 @@ export interface LancamentoFiltro {
 export class LancamentoService {
 
 
-  lancamentoUrl = 'http://localhost:8080/lancamento'
+  lancamentoUrl: string;
 
-  constructor(public http: HttpClient, private datePipe: DatePipe) { }
+  constructor(public http: HttpClient, private datePipe: DatePipe) {
+    this.lancamentoUrl = `${environment.apiUrl}/lancamento`;
+  }
+
+  uploadHeaders() {
+    return new HttpHeaders()
+      .append('Authorization', 'Bearer ' + localStorage.getItem('token'))
+  }
+
+  urlUploadAnexo(): string {
+    return `${this.lancamentoUrl}/anexo`;
+  }
 
   pesquisar(filtro: LancamentoFiltro): Promise<any> {
 

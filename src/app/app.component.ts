@@ -18,7 +18,7 @@ import { PrimeNG } from 'primeng/config';
   standalone: true,
   imports: [LancamentosModule, NavbarComponent, PessoasModule, ToastModule,
   ConfirmDialogModule, ButtonModule,
-    RouterModule, NgIf ],
+    RouterModule, NgIf],
 templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -7,17 +7,20 @@ import  Aura  from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
 import { HttpClient} from '@angular/common/http';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe, registerLocaleData } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { JWT_OPTIONS, JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { SegurancaModule } from './seguranca/seguranca.module';
 import { TranslateService, TranslateStore } from '@ngx-translate/core';
+import { DashboardService } from './dashboard/dashboard.service';
+import localePt from '@angular/common/locales/pt';
 
+registerLocaleData(localePt, 'pt-BR');
 
 export const appConfig: ApplicationConfig = {
-  providers: [ 
+  providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
@@ -27,10 +30,12 @@ export const appConfig: ApplicationConfig = {
         }
     }),
     provideHttpClient(),
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
     DatePipe,
     ToastModule,
     MessageService,
     ConfirmDialogModule,
+    DashboardService,
     ConfirmationService,
     {
       provide: JWT_OPTIONS,
@@ -40,6 +45,8 @@ export const appConfig: ApplicationConfig = {
     JwtHelperService,
     SegurancaModule,
     TranslateStore,
-    TranslateService
+    TranslateService,
+    DecimalPipe
   ]
+
 };

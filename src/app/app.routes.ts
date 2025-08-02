@@ -7,10 +7,12 @@ import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.compo
 import { LoginComponent } from './seguranca/login/login.component';
 import { AuthGuard } from './seguranca/auth.guard';
 import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { RelatorioLancamentosComponent } from './relatorios/relatorio-lancamentos/relatorio-lancamentos.component';
 
 export const routes: Routes = [
 
-  {path: '',redirectTo: 'lancamentos', pathMatch: 'full'},
+  {path: '',redirectTo: 'dashboard', pathMatch: 'full'},
   {path: 'lancamentos',component: LancamentosPesquisaComponent, canActivate: [AuthGuard],
      data: {roles: ['ROLE_PESQUISAR_LANCAMENTO']}},
   {path: 'lancamentos/novo',component: LancamentoCadastroComponent, canActivate: [AuthGuard],
@@ -27,6 +29,14 @@ export const routes: Routes = [
   },
   {path: 'pessoas/:codigo',component: PessoaCadastroComponent, canActivate: [AuthGuard],
     data: {roles: ['ROLE_CADASTRAR_PESSOA']},
+  },
+
+  {path: 'dashboard',component: DashboardComponent, canActivate: [AuthGuard],
+    data: {roles: ['ROLE_PESQUISAR_LANCAMENTO']},
+  },
+
+  {path: 'relatorios',component: RelatorioLancamentosComponent, canActivate: [AuthGuard],
+    data: {roles: ['ROLE_PESQUISAR_LANCAMENTO']},
   },
 
   {path: 'login',component: LoginComponent},

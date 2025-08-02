@@ -72,9 +72,28 @@
           formControlName="observacao"></textarea>
       </div>
 
+      <div class="col-12" *ngIf="!formulario.get('anexo')?.value">
+        <p-fileUpload name="anexo" mode="basic" auto="true" [maxFileSize]="1000000" chooseLabel="Anexar"
+          accept="image/*,application/pdf" [headers]="uploadHeaders" [url]="urlUploadAnexo"
+          (onBeforeUpload)="antesUploadAnexo()"
+          (onUpload)="aoTerminarUploadAnexo($event)"
+          (onError)="erroUpload()" [hidden]="uploadEmAndamento"
+          />
+
+          <p-progressSpinner [hidden]="!uploadEmAndamento" [style]="{ width: '25px', height: '25px' }"></p-progressSpinner>
+      </div>
+
+      <div class="col-12" *ngIf="formulario.get('anexo')?.value">
+        <button pButton type="button" severity="danger" icon="pi pi-trash" iconPos="right" pTooltip="Remover Anexo"
+          (click)="removerAnexo()"></button>
+
+        <a target="_blank" pTooltip="Baixar Anexo" tooltipPosition="top" [href]="formulario.get('urlAnexo')?.value">{{
+          nomeAnexo }}</a>
+      </div>
+
       <div class="col-12">
         <button pButton type="submit" label="Salvar" severity="info" icon="pi pi-save" iconPos="right"
-          [disabled]="formulario.invalid"></button>
+          [disabled]="formulario.invalid || uploadEmAndamento"></button>
         <button pButton type="button" label="Novo" severity="info" icon="pi pi-plus" iconPos="right"
           (click)="novo()"></button>
         <a routerLink="/lancamentos">Voltar para pesquisa</a>

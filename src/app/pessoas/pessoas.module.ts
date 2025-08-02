@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgForm, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { NgIf } from '@angular/common';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -10,7 +13,10 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogModule,
+    NgIf,
+    DropdownModule,
   ]
 })
 export class PessoasModule { }

@@ -18,6 +18,9 @@ import { LancamentoService } from '../lancamento.service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { FileUploadModule } from 'primeng/fileupload';
+import { CommonModule } from '@angular/common';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 @Component({
@@ -25,7 +28,8 @@ import { Title } from '@angular/platform-browser';
   standalone: true,
   imports: [InputTextModule, TextareaModule, ButtonModule,
     DatePickerModule, SelectButtonModule, SelectModule, RouterModule,
-    InputNumberModule, FormsModule, MessageModule, MessageComponent, ReactiveFormsModule],
+    InputNumberModule, FormsModule, MessageModule, MessageComponent, ReactiveFormsModule,
+  FileUploadModule, CommonModule, ProgressSpinnerModule],
 
 templateUrl: './lancamento-cadastro.component.html',
   styleUrl: './lancamento-cadastro.component.css'
@@ -41,6 +45,7 @@ export class LancamentoCadastroComponent implements OnInit {
   pessoas: object[] = []
   // lancamento: Lancamento = new Lancamento();
   formulario!: FormGroup;
+  uploadEmAndamento = false;
 
   constructor(
     private categoriaService: CategoriaService,
@@ -51,7 +56,7 @@ export class LancamentoCadastroComponent implements OnInit {
     private router: ActivatedRoute,
     private route: Router,
     private formBuilder: FormBuilder,
-    private title: Title,
+    private title: Title
   ){}
 
   ngOnInit(){
@@ -64,6 +69,49 @@ export class LancamentoCadastroComponent implements OnInit {
     if (codigoLancamento && codigoLancamento !== 'novo') {
       this.carregarLancamento(codigoLancamento)
     }
+  }
+
+  get uploadHeaders() {
+    return this.lancamentoService.uploadHeaders();
+  }
+
+  get urlUploadAnexo() {
+    return this.lancamentoService.urlUploadAnexo();
+  }
+
+  aoTerminarUploadAnexo(event: any) {
+    const anexo = event.originalEvent.body;
+    this.formulario.patchValue({
+      anexo: anexo.nome,
+      urlAnexo: anexo.url
+    });
+    this.uploadEmAndamento = false;
+  }
+
+  erroUpload() {
+    this.messageService.add({ severity: 'error', summary: 'Erro ao enviar anexo',
+      detail: 'Ocorreu um erro ao tentar enviar o anexo. Tente novamente.' });
+    this.uploadEmAndamento = false;
+  }
+
+  get nomeAnexo() {
+    const nome = this.formulario.get('anexo')?.value;
+
+    if (nome){
+      return nome.substring(nome.indexOf('_') + 1, nome.length);
+    }
+    return '';
+  }
+
+  antesUploadAnexo() {
+    this.uploadEmAndamento = true;
+  }
+
+  removerAnexo() {
+    this.formulario.patchValue({
+      anexo: null,
+      urlAnexo: null
+    });
   }
 
   configurarFormulario(){
@@ -82,7 +130,9 @@ export class LancamentoCadastroComponent implements OnInit {
       pessoa: this.formBuilder.group({
         codigo: [null, Validators.required],
         nome: []
-      })
+      }),
+      anexo: [],
+      urlAnexo: []
     });
 
   }
@@ -95,6 +145,10 @@ export class LancamentoCadastroComponent implements OnInit {
     this.lancamentoService.buscarPorCodigo(codigo)
     .then(lancamento   => {
       this.formulario.patchValue(lancamento)
+      if (this.formulario.get('urlAnexo')?.value)
+          this.formulario.patchValue({
+            urlAnexo: this.formulario.get('urlAnexo')?.value.replace('\\\\', 'https://')
+          });
         this.atualizarTituloEdicao()
     })
     .catch(erro => this.errorHandler.handle(erro))
